@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: OceanWater
+  m_Shader: {fileID: -6465566751694194690, guid: c7bf425ef9adc244cb89cf4bb2d7e0c9,
+    type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_7D1FDD89:
+        m_Texture: {fileID: 2800000, guid: 44471f887a7548b41b06ac187d6bbff3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_1345D245: 0.4
+    - Vector1_49A1C817: 0.3
+    - Vector1_5B8111FE: 11.7
+    - Vector1_6EF1D63E: 0.6
+    - Vector1_95768601: 0
+    - Vector1_FA764363: 0.8
+    m_Colors:
+    - Color_12D401EF: {r: 0.0141509175, g: 0.67739356, b: 1, a: 0}
+    - Color_975EAB27: {r: 0, g: 0.0071078874, b: 0.5849056, a: 0}
+    - Vector2_F40E542D: {r: 0.13, g: -1.05, b: 0, a: 0}
