@@ -9,8 +9,7 @@ public class PlayerStats
 {
     //health
     private float playerMaxHealth;
-    private float playerHealth;
-    
+    private float playerHealth;    
     
 
     //for instant damage or healing
