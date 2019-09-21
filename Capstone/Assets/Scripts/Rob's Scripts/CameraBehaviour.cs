@@ -10,7 +10,9 @@ public class CameraBehaviour : MonoBehaviour
 
     [SerializeField] private float horizontalRotSpeed;
     [SerializeField] private float verticalRotSpeed;
-    [SerializeField] private float followDistance;
+    [SerializeField] private float followDistance;    
+    [SerializeField] private float followDistanceMin;
+    private float followDistanceDefault;
     [SerializeField] private float followHeight;
     [SerializeField] private float maxFollowHeight;
     [SerializeField] private float minFollowHeight;
@@ -67,6 +69,9 @@ public class CameraBehaviour : MonoBehaviour
     //set camera
     private void Setup()
     {
+        //set default camera distance
+        followDistanceDefault = followDistance;
+
         //set camera pivot identical to player character
         cameraPivot.transform.position = player.transform.position;
         cameraPivot.transform.rotation = player.transform.rotation;
@@ -111,7 +116,6 @@ public class CameraBehaviour : MonoBehaviour
             {
                 followHeight = maxFollowHeight;
             }
-
 
             //adjust camera as new follow height
             SetCamera();            

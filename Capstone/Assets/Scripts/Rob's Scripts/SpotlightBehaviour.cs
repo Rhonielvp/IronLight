@@ -28,9 +28,13 @@ public class SpotlightBehaviour : MonoBehaviour
     private SphereCollider sphereCollider;
 
     //keep null until interaction
-    private PlayerHealthBehaviour playerHealthScript;    
+    private PlayerHealthBehaviour playerHealthScript;
 
-    
+    [SerializeField] float RespawnTime;
+    Coroutine respawnCoroutine = null;
+
+
+
     private void Start()
     {
         Setup();
@@ -74,7 +78,8 @@ public class SpotlightBehaviour : MonoBehaviour
         //set intensity to intensity set... improve
         light.intensity = intensity;
 
-
+        //turn on light
+        TurnOn();
     }
     
     //raycast to ground to find distance which effects all other variables
@@ -99,13 +104,32 @@ public class SpotlightBehaviour : MonoBehaviour
     //turn on light
     private void TurnOn()
     {
-        gameObject.SetActive(true);
+        light.enabled = true;
     }
 
     //turn of light for various reasons
     private void TurnOff()
     {
-        gameObject.SetActive(false);
+        light.enabled = false;
+        respawnCoroutine = StartCoroutine(RespawnTimer());
+    }
+
+    IEnumerator RespawnTimer()
+    {
+        float count = 0.0f;
+        
+        while(count < RespawnTime)
+        {
+            count += Time.deltaTime;
+            Debug.Log(count);
+            yield return null;
+        }
+        
+        //set position of light
+        ResetLight(transform.position);
+
+        //make coroutine container empty
+        respawnCoroutine = null;
     }
     
     

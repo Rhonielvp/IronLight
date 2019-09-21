@@ -6,8 +6,14 @@ using UnityEngine;
 //Followed a tutorial to get some more advanced particles
 public class ParticleLauncher : MonoBehaviour
 {
+    private enum Attacking { None, Beam, Explosion };
+    private Attacking currentAttack = Attacking.None;
+
+    [SerializeField] private Transform cameraPlayer;
     [SerializeField] private float beamAttackDrain;
-    [SerializeField] private ParticleSystem mainParticle;
+    [SerializeField] private float explosionAttackDrain;
+    [SerializeField] private ParticleSystem beamParticle;
+    [SerializeField] private ParticleSystem explosionParticle;
     [SerializeField] private ParticleSystem collisionParticle;
 
     //player health script
@@ -18,8 +24,7 @@ public class ParticleLauncher : MonoBehaviour
     //list to store collision event information for physics purposes
     private List<ParticleCollisionEvent> events = new List<ParticleCollisionEvent>();
 
-    private bool isFiring = false;
-
+    
     //coroutine
     Coroutine emitterFollowCoroutine = null;
 
@@ -30,7 +35,8 @@ public class ParticleLauncher : MonoBehaviour
         playerHealthScript = GetComponentInParent<PlayerHealthBehaviour>();
 
         //prevent playing on start
-        mainParticle.Stop();
+        beamParticle.Stop();
+        explosionParticle.Stop();
     }
 
 
@@ -38,47 +44,83 @@ public class ParticleLauncher : MonoBehaviour
     void Update()
     {
         //left shift
-        if(Input.GetButtonDown("Fire3") && isFiring == false)
+        if(Input.GetButtonDown("Fire3") && currentAttack == Attacking.None)
         {
-            isFiring = true;            
-
-            //start particles
-            mainParticle.Play();
-
-            //gets a reference to the main module of the particle system
-            ParticleSystem.MainModule psMain = mainParticle.main;
-
-            //NOT WORKING
-            //gets a random colour from the gradiant attached 
-            float temp = Random.Range(0.0f, 1.0f);
-            Debug.Log("Random: " + temp);
-            psMain.startColor = particleColourGradiant.Evaluate(temp);
-
-            //allows emitting number of particles per frame
-            //mainParticle.Emit(1);
-
-            //start follow coroutine
-            emitterFollowCoroutine = StartCoroutine(EmitterFollowPlayer());
-
-            //lower health
-            playerHealthScript.StartBeamAttackDrain();
-            Debug.Log("START beam attack");
+            currentAttack = Attacking.Beam;
+            BeamAttack();
         }
 
         if(Input.GetButtonUp("Fire3"))
         {
-            //stop particle emmision
-            mainParticle.Stop();
-
-            //stop emitter follow
-            StopCoroutine(emitterFollowCoroutine);
-
-            //stop drain coroutine
-            playerHealthScript.StopBeamAttackDrain();
-            Debug.Log("STOP beam attack");
-
-            isFiring = false;
+            StopBeamAttack();
+            currentAttack = Attacking.None;
         }
+
+        //left ctrl
+        if (Input.GetButtonDown("Fire1") && currentAttack == Attacking.None)
+        {
+            currentAttack = Attacking.Explosion;
+            ExplosionAttack();
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopExplosionAttack();
+            currentAttack = Attacking.None;
+        }
+    }
+
+    private void BeamAttack()
+    {        
+        //start particles
+        beamParticle.Play();
+
+        //gets a reference to the main module of the particle system
+        ParticleSystem.MainModule psMain = beamParticle.main;
+
+        //NOT WORKING
+        //gets a random colour from the gradiant attached 
+        float temp = Random.Range(0.0f, 1.0f);
+        Debug.Log("Random: " + temp);
+        psMain.startColor = particleColourGradiant.Evaluate(temp);
+
+        //allows emitting number of particles per frame
+        //mainParticle.Emit(1);
+
+        //start follow coroutine
+        emitterFollowCoroutine = StartCoroutine(EmitterFollowPlayer());
+
+        //lower health
+        playerHealthScript.StartBeamAttackDrain();
+        Debug.Log("START beam attack");
+    }
+
+    private void StopBeamAttack()
+    {
+        //stop particle emmision
+        beamParticle.Stop();
+
+        //stop emitter follow
+        StopCoroutine(emitterFollowCoroutine);
+
+        //stop drain coroutine
+        playerHealthScript.StopBeamAttackDrain();
+        Debug.Log("STOP beam attack");
+    }
+
+    private void ExplosionAttack()
+    {
+        //set position and rotation of particle effect
+        explosionParticle.transform.position = transform.position;
+        explosionParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
+
+        //emit only 1 particle
+        explosionParticle.Emit(1);
+    }
+
+    private void StopExplosionAttack()
+    {
+        explosionParticle.Stop();
     }
 
 
@@ -87,8 +129,17 @@ public class ParticleLauncher : MonoBehaviour
         while(true)
         {
             //set particle system active at current location
-            mainParticle.transform.position = transform.position;
-            mainParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
+            beamParticle.transform.position = transform.position;            
+            beamParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
+
+            Debug.Log("Angle: " + cameraPlayer.transform.eulerAngles.x);
+
+            //adjust angle if negative, means the player is looking up
+            if (cameraPlayer.transform.eulerAngles.x > 45f) 
+            {
+                float xRotation = cameraPlayer.transform.eulerAngles.x;
+                transform.eulerAngles = new Vector3(xRotation, transform.eulerAngles.y, transform.eulerAngles.z);
+            }                      
 
             yield return null;
         }
@@ -103,7 +154,7 @@ public class ParticleLauncher : MonoBehaviour
     private void OnParticleCollision(GameObject other)
     {
         //will store in our list a bunch of collision data
-        ParticlePhysicsExtensions.GetCollisionEvents(mainParticle, other, events);
+        ParticlePhysicsExtensions.GetCollisionEvents(beamParticle, other, events);
 
         for (int i = 0; i < events.Count; i++)
         {

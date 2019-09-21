@@ -84,6 +84,7 @@
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\PostProcess\Sobel\PostProcessExample.cs" />
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\Sprites\SpriteMask\SpriteMaskController.cs" />
     <Compile Include="Assets\ParticleLauncher.cs" />
+    <Compile Include="Assets\Particles\FullTiltBoogie\RotateFlareHolder.cs" />
     <Compile Include="Assets\Scripts\Review\CrystalRaycast.cs" />
     <Compile Include="Assets\Scripts\Review\Dashing.cs" />
     <Compile Include="Assets\Scripts\Review\SimpleCameraController.cs" />
@@ -225,6 +226,7 @@
     <None Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\StencilExample\RefractionsPanels\AnimatedRefraction.shader" />
     <None Include="Assets\Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_CoshOpNode.shader" />
     <None Include="Assets\Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_TauNode.shader" />
+    <None Include="Assets\Particles\FullTiltBoogie\Helpers\readme.txt" />
     <None Include="Assets\Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_IntNode.shader" />
     <None Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\RadialUVDistortion\RadialUVDistortion.shader" />
     <None Include="Assets\Assets\AmplifyShaderEditor\Examples\Community\EnvironmentGradient\Credits.txt" />
@@ -443,31 +445,31 @@
     <None Include="Assets\Assets\AmplifyShaderEditor\Plugins\EditorResources\Previews\Preview_DesaturateNode.shader" />
     <None Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\Mosaic Effect PPS\Readme.txt" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -653,19 +655,19 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.1f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="Substance.Game">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Assets/Allegorithmic/Plugins/Substance.Game.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Assets/Allegorithmic/Plugins/Substance.Game.dll</HintPath>
     </Reference>
     <Reference Include="AmplifyMotion">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Assets/Assets/AmplifyMotion/Plugins/AmplifyMotion.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Assets/Assets/AmplifyMotion/Plugins/AmplifyMotion.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/Robert/Documents/GitHub/IronLight/Capstone/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.1.1f1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
