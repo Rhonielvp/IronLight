@@ -115,7 +115,11 @@ public class ParticleLauncher : MonoBehaviour
         explosionParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
 
         //emit only 1 particle
-        explosionParticle.Emit(1);
+        explosionParticle.Play();
+
+        //adjust player health
+        playerHealthScript.ModifyHealth(-20.0f);
+
     }
 
     private void StopExplosionAttack()
