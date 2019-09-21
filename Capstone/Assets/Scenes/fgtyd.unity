@@ -2615,7 +2615,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: -6.87e-43, y: NaN, z: 2.1e-44, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -2914,6 +2914,36 @@ PrefabInstance:
         type: 3}
       propertyPath: followDistanceMin
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followHeightMax
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followHeightMin
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followDistanceMax
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followRotation
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followRotationMax
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followRotationSpeed
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd5d854364488e941ab55334a9544fb5, type: 3}
