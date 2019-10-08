@@ -155,6 +155,7 @@ public class MovementController : MonoBehaviour
 
             yield return null;
         }
+        maxSpeed = maxSpeedOriginal;
     }
 
     //timer to wait for dash to reset
