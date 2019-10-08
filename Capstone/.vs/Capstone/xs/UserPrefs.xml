@@ -1,0 +1,18 @@
+﻿<Properties StartupConfiguration="{1EE98971-DB57-CCE3-EB35-7D60258BAC4D}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Oliver's Camera/Script/CameraPivot.cs">
+    <Files>
+      <File FileName="Assets/Scripts/ScriptsComplete/PlayerScripts/PlayerMovement.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Rob's Scripts/JumpController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Rob's Scripts/MovementController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Rob's Scripts/CameraBehaviour.cs" Line="82" Column="44" />
+      <File FileName="Assets/Oliver's Camera/Script/CameraPivot.cs" Line="37" Column="20" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

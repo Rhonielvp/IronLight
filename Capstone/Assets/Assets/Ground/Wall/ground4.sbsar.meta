@@ -73,7 +73,7 @@ ScriptedImporter:
       - name: _DetailNormalMapScale
         float: 1
       - name: _DispOffset
-        float: 0.24
+        float: 0.48
       - name: _Displacement
         float: 0.51
       - name: _DstBlend
