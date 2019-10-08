@@ -75,7 +75,7 @@ public class MovementController : MonoBehaviour
             //move the body through force not transform, why??
             //be sure to use the main camera transform to ensure relevant direction
             Vector3 horizontalMovement = cameraPivot.transform.right * maxSpeed * horizontalInput;
-            Vector3 verticalMovement = cameraPivot.transform.forward * maxSpeed * verticalInput;
+            Vector3 verticalMovement = new Vector3(cameraPivot.transform.forward.x, 0, cameraPivot.transform.forward.z).normalized * maxSpeed * verticalInput;
 
             //guy recommended this as best movement 
             rb.MovePosition(transform.position + (horizontalMovement + verticalMovement) * Time.fixedDeltaTime);
