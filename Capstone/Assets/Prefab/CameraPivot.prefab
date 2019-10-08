@@ -44,13 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff49865ff82e04846a201a5413898fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 8521600123221351385, guid: 50d22bc98375fde489869497932c8c4c, type: 3}
+  player: {fileID: 0}
   cameraPivot: {fileID: 1805411944834033539}
   camera: {fileID: 1805411946165357919}
-  rotationSpeed: 100
+  horizontalRotSpeed: 100
+  verticalRotSpeed: 2
+  followDistanceMax: 3
+  followDistanceMin: 1
   followDistance: 3
+  followHeightMax: 1.5
+  followHeightMin: 0.5
   followHeight: 1.5
   followRotation: 25
+  followRotationMax: 50
+  followRotationSpeed: 25
+  currentCamera: 1
+  currentSetup: 0
 --- !u!1 &1805411946165357919
 GameObject:
   m_ObjectHideFlags: 0

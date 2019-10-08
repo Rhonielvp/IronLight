@@ -57,7 +57,7 @@ public class CameraBehaviour : MonoBehaviour
         Setup();
 
         //makes cursor invisible
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
 
