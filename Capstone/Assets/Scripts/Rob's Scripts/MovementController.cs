@@ -106,6 +106,7 @@ public class MovementController : MonoBehaviour
     private void Rotate(Vector3 rotationDirection)
     {
         //rotate to face the direction you are moving 
+        rotationDirection = new Vector3(rotationDirection.x, 0,rotationDirection.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(rotationDirection), rotationSpeed);
         //transform.rotation = Quaternion.LookRotation(rotationDirection);
         mostRecentRotation = transform.rotation;
