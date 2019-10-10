@@ -202,6 +202,16 @@ PrefabInstance:
       propertyPath: volumeTrigger
       value: 
       objectReference: {fileID: 2066929348}
+    - target: {fileID: 5688443931472006259, guid: 280b55a2e946809418577ba6f4095e90,
+        type: 3}
+      propertyPath: CameraMaxHeight
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5688443931472006259, guid: 280b55a2e946809418577ba6f4095e90,
+        type: 3}
+      propertyPath: CameraMinHeight
+      value: -20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 280b55a2e946809418577ba6f4095e90, type: 3}
 --- !u!1 &170171480
@@ -2145,7 +2155,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 2.644e-42, y: 1.05e-43, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1.2850572e-11, z: -0.034941796, w: -6.476331e-29}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0

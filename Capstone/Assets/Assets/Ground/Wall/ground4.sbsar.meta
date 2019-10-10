@@ -73,9 +73,9 @@ ScriptedImporter:
       - name: _DetailNormalMapScale
         float: 1
       - name: _DispOffset
-        float: 0.48
-      - name: _Displacement
         float: 0.51
+      - name: _Displacement
+        float: 0.3
       - name: _DstBlend
         float: 0
       - name: _GlossMapScale
@@ -91,7 +91,7 @@ ScriptedImporter:
       - name: _OcclusionStrength
         float: 0.644
       - name: _Parallax
-        float: 0.04325
+        float: 0.0275
       - name: _Phong
         float: 0.5
       - name: _ShadowLOD
