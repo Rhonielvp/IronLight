@@ -6,6 +6,7 @@ using UnityEngine;
 //Followed a tutorial to get some more advanced particles
 public class ParticleLauncher : MonoBehaviour
 {
+    public Camera cam;
     [SerializeField] private ParticleSystem mainParticle;
     [SerializeField] private ParticleSystem collisionParticle;
 
@@ -30,7 +31,7 @@ public class ParticleLauncher : MonoBehaviour
         {
             //set particle system active at current location
             mainParticle.transform.position = transform.position;
-            mainParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
+            mainParticle.transform.rotation = Quaternion.LookRotation(cam.transform.forward);
 
             if(mainParticle.isPaused)
             {
