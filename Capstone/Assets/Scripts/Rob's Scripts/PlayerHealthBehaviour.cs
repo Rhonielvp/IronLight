@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class PlayerHealthBehaviour : MonoBehaviour
 {
     //have access to UI health
-    [SerializeField] public GameObject playerHealthUI;
-    private Slider sliderScript;
+    [SerializeField] private GameObject playerHealthUI;
+    private Slider sliderHealth;
     
 
     //player health
     [SerializeField] public float currentHealth;
     [SerializeField] private float maxHealth;
+
+    private float chargeHealth;
 
 
     //value that the player will heal every frame when in light source
@@ -29,10 +31,12 @@ public class PlayerHealthBehaviour : MonoBehaviour
     void Start()
     {
         //get slider script
-        sliderScript = playerHealthUI.GetComponent<Slider>();
+        sliderHealth = playerHealthUI.GetComponent<Slider>();
 
         //set slider to have matching limit as health
-        sliderScript.maxValue = maxHealth;        
+        sliderHealth.maxValue = maxHealth;
+
+        sliderHealth.image.color = Color.green;
 
         //set health
         currentHealth = maxHealth;
@@ -41,6 +45,7 @@ public class PlayerHealthBehaviour : MonoBehaviour
 
 
     //used modify health for instant changes
+    //**disrupt charging of attacks???
     public void ModifyHealth(float set)
     {
         //change health
@@ -154,6 +159,36 @@ public class PlayerHealthBehaviour : MonoBehaviour
     //Updates the UI scroll bar for health
     private void UpdatePlayerHealthUI(float set)
     {
-        sliderScript.value = set;
+        sliderHealth.value = set;
+        Debug.Log("<color=green>UIValue: </color>" + sliderHealth.value);
+    }
+
+    //access for outside methods
+    //script name to ensure that only certain scripts can access it
+    public void ChargingUI(float set)
+    {
+        //set the temp health so to ensure we still have normal health
+        //if damage gets taken and we can calculate that
+        chargeHealth = currentHealth - set;
+
+        //set UI equal to chargeHealth
+        UpdatePlayerHealthUI(chargeHealth);
+    }
+
+    //call when an attack is done charging and gets released
+    public void ChargeChange()
+    {
+        //set current health the charge health
+        currentHealth = chargeHealth;
+
+        //update UI
+        UpdatePlayerHealthUI(currentHealth);
+    }
+
+
+    //GETTERS & SETTERS
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
     }
 }

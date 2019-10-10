@@ -83,12 +83,12 @@
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\Smear\Smear.cs" />
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\PostProcess\Sobel\PostProcessExample.cs" />
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\Sprites\SpriteMask\SpriteMaskController.cs" />
-    <Compile Include="Assets\ParticleLauncher.cs" />
     <Compile Include="Assets\Particles\FullTiltBoogie\RotateFlareHolder.cs" />
     <Compile Include="Assets\Scripts\Review\CrystalRaycast.cs" />
     <Compile Include="Assets\Scripts\Review\Dashing.cs" />
     <Compile Include="Assets\Scripts\Review\SimpleCameraController.cs" />
     <Compile Include="Assets\Scripts\Review\WeaponSwitching.cs" />
+    <Compile Include="Assets\Scripts\Rob's Scripts\AttackCharge.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\BeamCrystalBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\CameraBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\CrystalBehaviour.cs" />
@@ -97,6 +97,7 @@
     <Compile Include="Assets\Scripts\Rob's Scripts\JumpController.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\MoveObject.cs" />
+    <Compile Include="Assets\Scripts\Rob's Scripts\PlayerAttackController.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerHealthBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerIndicator.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerStats.cs" />

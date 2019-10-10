@@ -123,7 +123,7 @@ public class CameraBehaviour : MonoBehaviour
             if(currentCameraMode == CameraMode.Height)
             {
                 followHeight += Input.GetAxisRaw(vertical) * Time.deltaTime * verticalRotSpeed * setup.y;
-                Debug.Log(followHeight);
+                //Debug.Log(followHeight);
 
                 //fix if out of range
                 if (followHeight < followHeightMin)

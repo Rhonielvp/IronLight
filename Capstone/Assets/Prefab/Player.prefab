@@ -1,5 +1,83 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1160670869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1160670870}
+  - component: {fileID: 1160670871}
+  m_Layer: 0
+  m_Name: LanturnEmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1160670870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160670869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.51, z: 0.98}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4618889955414796746}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1160670871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160670869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b296466c246ddec4cab3a707e5d95927, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPlayer: {fileID: 0}
+  beamAttackDrain: -1
+  explosionAttackDrain: -10
+  beamParticle: {fileID: 0}
+  explosionParticle: {fileID: 0}
+  collisionParticle: {fileID: 0}
+  particleColourGradiant:
+    serializedVersion: 2
+    key0: {r: 1, g: 0.9398438, b: 0, a: 1}
+    key1: {r: 0.1827594, g: 1, b: 0, a: 1}
+    key2: {r: 0, g: 0.972549, b: 0.880443, a: 1}
+    key3: {r: 1, g: 0.29019606, b: 0.88036287, a: 0}
+    key4: {r: 1, g: 1, b: 1, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 7903
+    ctime1: 27563
+    ctime2: 43562
+    ctime3: 65535
+    ctime4: 62066
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 65535
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
 --- !u!1 &329075417754036455
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,7 +92,7 @@ GameObject:
   m_Layer: 0
   m_Name: GroundCheckObject
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -75,6 +153,8 @@ GameObject:
   - component: {fileID: 8521600123221351364}
   - component: {fileID: 8521600123221351367}
   - component: {fileID: 8521600123221351366}
+  - component: {fileID: 8274188321207755792}
+  - component: {fileID: 8274188321207755798}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -89,11 +169,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8521600123221351385}
-  m_LocalRotation: {x: -0.000000017859987, y: -0.88099515, z: 0.000000033256644, w: 0.47312537}
+  m_LocalRotation: {x: 0, y: -0.880994, z: 0, w: 0.47312742}
   m_LocalPosition: {x: -2.12, y: 10.41, z: 41.14}
   m_LocalScale: {x: 0.34855857, y: 0.34855857, z: 0.34855857}
   m_Children:
   - {fileID: 329075417754036452}
+  - {fileID: 1160670870}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -123.52501, z: 0}
@@ -188,6 +269,7 @@ MonoBehaviour:
   cameraPivot: {fileID: 0}
   axisControl: 0.35
   maxSpeed: 4
+  rotationSpeed: 0.1
   canDash: 1
   dashMultiplier: 2
   dashResetTime: 1
@@ -208,3 +290,36 @@ MonoBehaviour:
   jumpForce: 20
   jumpDuration: 0.3
   maxJumps: 2
+--- !u!114 &8274188321207755792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521600123221351385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9645568132ac73b478c7ebe67eb7d6c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ChargeUI: {fileID: 0}
+  chargeSpeed: 5.6
+  isCharging: 0
+--- !u!114 &8274188321207755798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8521600123221351385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f21d313a15a1fd0438411234dc2d3526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealthUI: {fileID: 0}
+  currentHealth: 0
+  maxHealth: 100
+  lightSourceHealing: 1
+  beamAttackDraining: 1
+  lowestDrainPoint: 5
