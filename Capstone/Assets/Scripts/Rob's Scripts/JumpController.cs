@@ -36,7 +36,7 @@ public class JumpController : MonoBehaviour
     private void FixedUpdate()
     {
         //can only jump if jumps available and if count is less than jump duration
-        if (Input.GetButton("Jump") && jumps > 0 && count < jumpDuration)
+        if (Input.GetButton("Jump") && jumps > 0 && count < jumpDuration && isGrounded == true)
         {
             //if player is not in the state of jumping than set their y velocity to zero
             //this will enable double jumping smoothly 
