@@ -50,7 +50,7 @@ public class PlayerUI : MonoBehaviour
             percentage = 0;
         }       
 
-        Debug.Log(percentage);
+        //Debug.Log(percentage);
 
         health.transform.position = new Vector2(emptyPosition.x + (width * percentage), emptyPosition.y);
     }

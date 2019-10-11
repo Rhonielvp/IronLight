@@ -9134,7 +9134,7 @@ PrefabInstance:
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
       propertyPath: verticalRotSpeed
-      value: 2.5
+      value: 3.18
       objectReference: {fileID: 0}
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
@@ -9154,7 +9154,7 @@ PrefabInstance:
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
       propertyPath: followDistanceMin
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
@@ -9164,7 +9164,7 @@ PrefabInstance:
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
       propertyPath: followHeightMin
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
@@ -9174,17 +9174,27 @@ PrefabInstance:
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
       propertyPath: followRotation
-      value: 25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
       propertyPath: followRotationMax
-      value: 50
+      value: 35.1
       objectReference: {fileID: 0}
     - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
         type: 3}
       propertyPath: followRotationSpeed
-      value: 25
+      value: 6.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: followRotationMin
+      value: -10.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6473162756047916940, guid: cd5d854364488e941ab55334a9544fb5,
+        type: 3}
+      propertyPath: zoomSpeed
+      value: 1.48
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd5d854364488e941ab55334a9544fb5, type: 3}

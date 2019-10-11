@@ -8,19 +8,22 @@ public class CameraBehaviour : MonoBehaviour
     [SerializeField] private GameObject cameraPivot;
     [SerializeField] private GameObject camera;
 
-    [SerializeField] private float horizontalRotSpeed;
-    [SerializeField] private float verticalRotSpeed;
-      
-    [SerializeField] private float followDistanceMax;    
-    [SerializeField] private float followDistanceMin;
-    [SerializeField] private float followDistance;    
-    [SerializeField] private float followHeightMax;
-    [SerializeField] private float followHeightMin;
+    [Range(10f, 200f)][SerializeField] private float horizontalRotSpeed;
+    [Range(1f, 10f)][SerializeField] private float verticalRotSpeed;
+    [Range(0.01f, 5f)][SerializeField] private float zoomSpeed;
+
+    [Range(1f, 10f)] [SerializeField] private float followDistanceMax;
+    [Range(1f, 10f)] [SerializeField] private float followDistanceMin;
+    private float followDistanceTotal;
+    [SerializeField] private float followDistance;
+    [Range(1f, 10f)] [SerializeField] private float followHeightMax;
+    [Range(0.1f, 5f)] [SerializeField] private float followHeightMin;
+    private float followHeightTotal;
     [SerializeField] private float followHeight;
 
-    [Range(1.0f, 100.0f)] [SerializeField] private float followRotation;
-    [Range(1.0f, 100.0f)] [SerializeField] private float followRotationMax;
-    [Range(1.0f, 100.0f)] [SerializeField] private float followRotationSpeed;
+    [SerializeField] private float followRotation;
+    [Range(1.0f, 60.0f)] [SerializeField] private float followRotationMax;
+    [Range(-60.0f, 0f)] [SerializeField] private float followRotationMin;    
     private float followRotationDefault;
 
     private float rotX;
@@ -50,7 +53,10 @@ public class CameraBehaviour : MonoBehaviour
 
     //controller for moving camera updown/ inout
     private enum CameraMode { Height, Distance };
-    private CameraMode currentCameraMode = CameraMode.Height;
+    [SerializeField] private CameraMode currentCameraMode = CameraMode.Height;
+
+    private enum CameraPosition { Top, Bottom };
+    [SerializeField] private CameraPosition currentCameraPosition = CameraPosition.Bottom;
 
 
     
@@ -67,20 +73,21 @@ public class CameraBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //unless the player has moved don't run camera function
-        if(cameraPivot.transform.position != player.transform.position)
-        {
-            //camera fucntion using the correct axis
-            SetCamera(vertical, horizontal, setup[currentSetup]);
-        }   
+        //camera fucntion using the correct axis
+        SetCamera(vertical, horizontal, setup[currentSetup]);
     }
 
     //set camera
     private void Setup()
     {
         //set camera default height/distance
-        followHeight = followHeightMax;
+        followHeight = followHeightMin;
         followDistance = followDistanceMax;
+        followRotation = 0.0f;
+
+        //set the totals for height and distance
+        followHeightTotal = followHeightMax - followHeightMin;
+        followDistanceTotal = followDistanceMax - followDistanceMin;
 
         //store main rotation
         followRotationDefault = followRotation;
@@ -140,8 +147,7 @@ public class CameraBehaviour : MonoBehaviour
             if(currentCameraMode == CameraMode.Height)
             {
                 followHeight += Input.GetAxisRaw(vertical) * Time.deltaTime * verticalRotSpeed * setup.y;
-                //Debug.Log(followHeight);
-
+                
                 //fix if out of range
                 if (followHeight < followHeightMin)
                 {
@@ -150,35 +156,41 @@ public class CameraBehaviour : MonoBehaviour
 
                     //change mode
                     currentCameraMode = CameraMode.Distance;
+                    currentCameraPosition = CameraPosition.Bottom;
                 }
                 else if (followHeight > followHeightMax)
                 {
+                    //clamp
                     followHeight = followHeightMax;
+
+                    //change mode
+                    currentCameraMode = CameraMode.Distance;
+                    currentCameraPosition = CameraPosition.Top;
                 }
             }
             //distance movement
             else if(currentCameraMode == CameraMode.Distance)
             {
-                //alter distance by mouse input
-                followDistance += Input.GetAxisRaw(vertical) * Time.deltaTime * verticalRotSpeed * setup.y;
-
-                //adjust rotation relative to player
-                followRotation -= Input.GetAxisRaw(vertical) * Time.deltaTime * followRotationSpeed * setup.y;
-                
-
-                //cap followrotation
-                if(followRotation > followRotationMax)
+                //different implementation depending on top of bottom
+                if(currentCameraPosition == CameraPosition.Bottom)
                 {
-                    followRotation = followRotationMax;
+                    //alter distance by mouse input
+                    followDistance += Input.GetAxisRaw(vertical) * Time.deltaTime * zoomSpeed * setup.y;
                 }
+                else if(currentCameraPosition == CameraPosition.Top)
+                {
+                    //alter distance by mouse input
+                    followDistance -= Input.GetAxisRaw(vertical) * Time.deltaTime * zoomSpeed * setup.y;
+                }                
 
-                //fix if out of range
+                //fix if out of range and potential switch
                 if (followDistance > followDistanceMax)
                 {
                     //clamp
                     followDistance = followDistanceMax;
 
                     followRotation = followRotationDefault;
+
                     //change mode
                     currentCameraMode = CameraMode.Height;
                 }
@@ -186,6 +198,16 @@ public class CameraBehaviour : MonoBehaviour
                 {
                     followDistance = followDistanceMin;
                 }
+
+                //clamp rotate depending on cameraPosition
+                if(currentCameraPosition == CameraPosition.Top)
+                {
+                    followRotation = (1 - (followDistance - followDistanceMin / followDistanceTotal)) * followRotationMin;
+                }
+                else if(currentCameraPosition == CameraPosition.Bottom)
+                {
+                    followRotation = (1 - (followDistance - followDistanceMin / followDistanceTotal)) * followRotationMax;
+                }                
             }
 
             //adjust camera as new follow height

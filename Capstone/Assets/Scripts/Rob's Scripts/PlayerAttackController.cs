@@ -141,17 +141,16 @@ public class PlayerAttackController : MonoBehaviour
         while(true)
         {
             //set particle system active at current location
-            beamParticle.transform.position = transform.position;            
+            beamParticle.transform.position = transform.position;
             beamParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
-
-            //Debug.Log("Angle: " + cameraPlayer.transform.eulerAngles.x);
+            Debug.Log("<color=purple>Angle: </color>" + cameraPlayer.transform.eulerAngles.x);
 
             //adjust angle if negative, means the player is looking up
             if (cameraPlayer.transform.eulerAngles.x > 45f) 
             {
                 float xRotation = cameraPlayer.transform.eulerAngles.x;
                 transform.eulerAngles = new Vector3(xRotation, transform.eulerAngles.y, transform.eulerAngles.z);
-            }                      
+            }  
 
             yield return null;
         }
