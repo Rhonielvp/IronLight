@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChargeUI: {fileID: 0}
-  chargeSpeed: 5.6
+  chargeSpeed: 5
   isCharging: 0
 --- !u!114 &8274188321207755798
 MonoBehaviour:
@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerHealthUI: {fileID: 0}
+  playerUI: {fileID: 0}
   currentHealth: 0
   maxHealth: 100
   lightSourceHealing: 1

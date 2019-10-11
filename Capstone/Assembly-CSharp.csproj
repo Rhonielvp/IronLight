@@ -101,6 +101,7 @@
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerHealthBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerIndicator.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\Rob's Scripts\PlayerUI.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\ProgressManager.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PuzzleSetup.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\ShrineBehaviour.cs" />

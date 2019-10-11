@@ -85,7 +85,7 @@ public class PlayerAttackController : MonoBehaviour
         //NOT WORKING
         //gets a random colour from the gradiant attached 
         float temp = Random.Range(0.0f, 1.0f);
-        Debug.Log("Random: " + temp);
+        //Debug.Log("Random: " + temp);
         psMain.startColor = particleColourGradiant.Evaluate(temp);
 
         //allows emitting number of particles per frame
@@ -96,7 +96,7 @@ public class PlayerAttackController : MonoBehaviour
 
         //lower health
         playerHealthScript.StartBeamAttackDrain();
-        Debug.Log("START beam attack");
+        //Debug.Log("START beam attack");
     }
 
     private void StopBeamAttack()
@@ -115,7 +115,7 @@ public class PlayerAttackController : MonoBehaviour
     private void ExplosionAttack()
     {
         //check if player has adequet health to attack
-        if(playerHealthScript.GetCurrentHealth() > explosionAttackDrain)
+        if(playerHealthScript.GetHealthCurrent() > explosionAttackDrain)
         {
             //set position and rotation of particle effect
             explosionParticle.transform.position = transform.position;
@@ -144,7 +144,7 @@ public class PlayerAttackController : MonoBehaviour
             beamParticle.transform.position = transform.position;            
             beamParticle.transform.rotation = Quaternion.LookRotation(transform.forward);
 
-            Debug.Log("Angle: " + cameraPlayer.transform.eulerAngles.x);
+            //Debug.Log("Angle: " + cameraPlayer.transform.eulerAngles.x);
 
             //adjust angle if negative, means the player is looking up
             if (cameraPlayer.transform.eulerAngles.x > 45f) 

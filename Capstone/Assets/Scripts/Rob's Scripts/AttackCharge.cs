@@ -5,33 +5,34 @@ using UnityEngine.UI;
 
 public class AttackCharge : MonoBehaviour
 {
-    [SerializeField] private GameObject ChargeUI;
-    private Slider sliderCharge;
+    [SerializeField] private GameObject PlayerUI;
+    private PlayerUI UI;
 
     //player health script
     PlayerHealthBehaviour playerHealthScript;
 
-    [Range(1f, 10f)] [SerializeField] public float chargeSpeed = 1f;
-    //[Range(1f, 10f)] [SerializeField] public float chargeDamage = 1f;
+    [Range(0f, 0.5f)] [SerializeField] private float focusCap;
+
+    [Range(1f, 10f)] [SerializeField] private float chargeSpeed = 1f;
+    [Range(0.01f, 0.1f)] [SerializeField] private float focusSpeed = 1f;
+    
 
     public bool isCharging;
+    public bool isFocusing;
+
+    private float chargePercentage = 0.0f;    
+    private float focusPercentage = 0.0f;
 
     public Coroutine currentCoroutine;
-
-    private float count = 0.0f;
-    private float value = 0.0f;
 
 
     private void Start()
     {
-        sliderCharge = ChargeUI.GetComponent<Slider>();
+        //set up UI script
+        UI = PlayerUI.GetComponent<PlayerUI>();
 
         //get health script
-        playerHealthScript = GetComponent<PlayerHealthBehaviour>();
-
-        //slider shit
-        sliderCharge.image.color = Color.yellow;
-        sliderCharge.value = 0;
+        playerHealthScript = GetComponent<PlayerHealthBehaviour>();                
     }
 
     private void Update()
@@ -41,91 +42,123 @@ public class AttackCharge : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && isCharging == false)
         {
             isCharging = true;
+            UI.StartCharge();
 
-            currentCoroutine = StartCoroutine(Charging());
+            currentCoroutine = StartCoroutine(Charge());
         }
 
         //stop coroutine and reset charging
         if (Input.GetKeyUp(KeyCode.Tab))
         {
             isCharging = false;
+
+            //reset UI         
+            UI.StopCharge();
+            Debug.Log("Reset");
+
+            //stop coroutine
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = null;            
         }
     }
 
-    IEnumerator Charging()
+    IEnumerator Charge()
     {
-        count = 0.01f;
+        chargePercentage = 0f;
+        focusPercentage = 0f;
         //change to maxhealth for alt implementation
-        float currentHealth = playerHealthScript.GetCurrentHealth();
+        float healthPercentage = playerHealthScript.GetHealthPercentage();
 
+        //create seperate bool to control coroutine because isCharging
+        //is used for determining button press
+        bool OnCharge = true;
+        bool OnFocus = true;
+
+        //button press
         while(isCharging)
         {
-            if(count < currentHealth)
+            //coroutine math
+            while (OnCharge)
             {
-                //set slider value
-                sliderCharge.value = count / currentHealth;                
+                if (chargePercentage < healthPercentage)
+                {
+                    //adjust UI charge bar
+                    UI.AdjustCharge(chargePercentage);
 
-                //increment count
-                count += Time.deltaTime * chargeSpeed;
-            }
-            else if(count > currentHealth)
-            {
-                count = currentHealth;
-            }
-            else
-            {
-                //have the charge bar do some glowing shit
+                    //increment count
+                    chargePercentage += Time.deltaTime * chargeSpeed;
+                }
+                else if (chargePercentage > healthPercentage)
+                {
+                    //set charge to max than set to end coroutine
+                    chargePercentage = healthPercentage;
+                    UI.AdjustCharge(chargePercentage);
+                    OnCharge = false;
+                }
 
+                yield return null;
+            }
+
+
+            while(OnFocus)
+            {
+                //focus can go to same as charge mins focus cap so player doesn't kill themselves
+                if(focusPercentage < chargePercentage - focusCap)
+                {
+                    //adjust UI, 1 because we need to get the inverse of the charge
+                    UI.AdjustFocus(1 - focusPercentage);
+
+                    //increment
+                    focusPercentage += Time.deltaTime * focusSpeed;
+                }
+                else if(focusPercentage > chargePercentage - focusCap)
+                {
+                    focusPercentage = chargePercentage - focusCap;
+                    UI.AdjustFocus(1 - focusPercentage);
+                    OnFocus = false;
+                }
+
+                yield return null;
             }
 
             yield return null;
-        }
+        }            
+    }    
 
-        //reset slider
-        sliderCharge.value = 0.0f;
-           
-    }
-
-    //IEnumerator ChargingAlt()
-    //{
-    //    count = 0.0f;
-    //    value = 0.0f;
-
-    //    while(isCharging)
-    //    {
-    //        //set value equal to the sin of count, will be between 0 and 1            
-    //        value = (Mathf.Cos(count) * -1f + 1f) / 2f;
-    //        Debug.Log("<color=red>Count: </color>" + count);
-
-    //        value *= chargeDamage;
-    //        Debug.Log("<color=blue>Value: </color>" + value);
-
-    //        playerHealthBehaviourScript.ChargingUI(value);
-
-    //        yield return null;
-
-    //        //increment time
-    //        count += Time.deltaTime * chargeSpeed;
-    //    }
-
-    //    //reset value to 0 for next charge
-    //    playerHealthBehaviourScript.ChargingUI(0.0f);
-
-    //    //set coroutine to null
-    //    currentCoroutine = null;
-    //}
-
+        
     //for attacks to access the charget to determine multiplier strength
     public float GetCharge()
     {
         isCharging = false;
 
-        return count;
+        return chargePercentage;
     }
 
     //player took damage so loses charge an resets UI slider
     public void DamageTaken()
     {
-        sliderCharge.value = 0.0f;
+        if(currentCoroutine != null)
+        {
+            //stop coroutine
+            StopCoroutine(currentCoroutine);
+
+            currentCoroutine = null;
+        }
+
+        //reset UI
+        UI.AdjustCharge(0);
+    }
+
+
+
+    //GETTERS & SETTERS
+    public float GetChargePercentage()
+    {
+        return chargePercentage;
+    }
+
+    public float GetFocusPercentage()
+    {
+        return focusPercentage;
     }
 }

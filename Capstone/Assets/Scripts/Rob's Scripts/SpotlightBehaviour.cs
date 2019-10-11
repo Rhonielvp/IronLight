@@ -90,7 +90,7 @@ public class SpotlightBehaviour : MonoBehaviour
 
         if(canHit != 0)
         {
-            Debug.Log(canHit.value);
+            //Debug.Log(canHit.value);
         }
 
         //shout raycast to determine distance from ground
@@ -160,7 +160,7 @@ public class SpotlightBehaviour : MonoBehaviour
             
             //shrink the light
             ShrinkLightAlt();
-            Debug.Log("Shrink Light");
+            //Debug.Log("Shrink Light");
         }
     }
 

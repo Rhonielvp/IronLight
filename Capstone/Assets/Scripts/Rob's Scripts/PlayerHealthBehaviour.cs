@@ -5,21 +5,21 @@ using UnityEngine.UI;
 
 public class PlayerHealthBehaviour : MonoBehaviour
 {
-    //have access to UI health
-    [SerializeField] private GameObject playerHealthUI;
-    private Slider sliderHealth;
-    
+    //player UI
+    [SerializeField] private GameObject playerUI;
+    private PlayerUI UI;    
 
     //player health
     [SerializeField] public float currentHealth;
     [SerializeField] private float maxHealth;
+    private float healthPercentage;
 
     private float chargeHealth;
 
 
     //value that the player will heal every frame when in light source
-    [SerializeField] private float lightSourceHealing;
-    [SerializeField] private float beamAttackDraining;
+    [Range(1f, 100f)][SerializeField] private float lightSourceHealing;
+    [Range(1f,100f)][SerializeField] private float beamAttackDraining;
     [SerializeField] private float lowestDrainPoint;
 
     //keep track of coroutines for correct performance
@@ -30,17 +30,12 @@ public class PlayerHealthBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //get slider script
-        sliderHealth = playerHealthUI.GetComponent<Slider>();
-
-        //set slider to have matching limit as health
-        sliderHealth.maxValue = maxHealth;
-
-        sliderHealth.image.color = Color.green;
-
+        //NEW UI
+        UI = playerUI.GetComponent<PlayerUI>();
+        
         //set health
         currentHealth = maxHealth;
-        UpdatePlayerHealthUI(currentHealth);
+        UpdatePlayerHealthUI(currentHealth);        
     }
 
 
@@ -96,13 +91,13 @@ public class PlayerHealthBehaviour : MonoBehaviour
 
     public void StartBeamAttackDrain()
     {
-        Debug.Log("START beam attack drain");
+        //Debug.Log("START beam attack drain");
         beamDrainCoroutine =  StartCoroutine(BeamAttackDrain());
     }
 
     public void StopBeamAttackDrain()
     {
-        Debug.Log("STOP beam attack drain");
+        //Debug.Log("STOP beam attack drain");
         StopCoroutine(beamDrainCoroutine);
         //StopAllCoroutines();
     }
@@ -141,12 +136,15 @@ public class PlayerHealthBehaviour : MonoBehaviour
 
         lightHealingCoroutine = StartCoroutine(LightSourceHeal());
     }
+
     //stop
     public void StopLightSourceHeal()
     {
         Debug.Log("STOP light healing");
-
-        StopCoroutine(lightHealingCoroutine);
+        if(lightHealingCoroutine != null)
+        {
+            StopCoroutine(lightHealingCoroutine);
+        }        
 
         //round current health value up to a normal number
         Mathf.RoundToInt(currentHealth);
@@ -157,10 +155,10 @@ public class PlayerHealthBehaviour : MonoBehaviour
 
 
     //Updates the UI scroll bar for health
-    private void UpdatePlayerHealthUI(float set)
+    private void UpdatePlayerHealthUI(float newCurrentHealth)
     {
-        sliderHealth.value = set;
-        Debug.Log("<color=green>UIValue: </color>" + sliderHealth.value);
+        //new UI change
+        UI.AdjustHealth(newCurrentHealth / maxHealth);
     }
 
     //access for outside methods
@@ -187,8 +185,18 @@ public class PlayerHealthBehaviour : MonoBehaviour
 
 
     //GETTERS & SETTERS
-    public float GetCurrentHealth()
+    public float GetHealthCurrent()
     {
         return currentHealth;
+    }    
+
+    public float GetHealthMax()
+    {
+        return maxHealth;
+    }
+
+    public float GetHealthPercentage()
+    {
+        return currentHealth / maxHealth;
     }
 }
