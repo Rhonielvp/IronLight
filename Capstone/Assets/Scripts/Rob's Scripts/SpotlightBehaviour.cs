@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 //Rob
 //Allow designers to place lights anywhere without having to worry about specific measurements
 //Only have to worry about how big they want the light to be
 public class SpotlightBehaviour : MonoBehaviour
 {
+    public GameObject LightBarUI;
+    public Image LightRemBar;
+    [SerializeField] private float CurLightBarFill;
+    private float BarFillPercent;
     //size you want spotlight to be
     [SerializeField] private float radius;
     private float distanceToGround;
@@ -31,6 +35,7 @@ public class SpotlightBehaviour : MonoBehaviour
     
     private void Start()
     {
+
         light = GetComponent<Light>();
         sphereCollider = GetComponent<SphereCollider>();
 
@@ -52,9 +57,16 @@ public class SpotlightBehaviour : MonoBehaviour
         light.spotAngle = angleStartSize;        
 
         //set intensity to intensity set... improve
-        light.intensity = intensity;        
+        light.intensity = intensity;
+        //CurLightBarFill = radiusStartSize;
+        //LightBarFill = LightRemBar.fillAmount * radiusStartSize;
     }
+    private void Update()
+    {
+        BarFillPercent = light.spotAngle / angleStartSize * 100;
+        LightRemBar.fillAmount = BarFillPercent*0.01f;
 
+    }
     private float FindDistance()
     {
         //set a layermask to terrain layer so that raycast only hits that layer
@@ -99,6 +111,7 @@ public class SpotlightBehaviour : MonoBehaviour
     //shrink the light
     IEnumerator ShrinkLight()
     {
+
         while(true)
         {
             light.spotAngle -= (light.spotAngle / sphereCollider.radius) * Time.deltaTime;
@@ -114,8 +127,10 @@ public class SpotlightBehaviour : MonoBehaviour
     //shrinks the light at a consistant rate 
     private void ShrinkLightAlt()
     {
+
         light.spotAngle -= (light.spotAngle / sphereCollider.radius) * Time.deltaTime;
         sphereCollider.radius = (light.spotAngle / angleStartSize) * radiusStartSize;
+        LightBarUI.SetActive(true);
     }
 
     private void OnTriggerStay(Collider other)
@@ -123,18 +138,23 @@ public class SpotlightBehaviour : MonoBehaviour
         //player enters spotlight
         if (other.gameObject.tag == "Player")
         {
+
+
             //if light source has no intensity than deactivate
-            if(sphereCollider.radius <= inactiveRadius)
+            if (sphereCollider.radius <= inactiveRadius)
             {
                 Debug.Log("Spotlight Inactive");
+                LightBarUI.SetActive(false);
                 gameObject.SetActive(false);
+
                 return;
             }
 
             //increase players health
-            
+
 
             //shrink the light
+
             ShrinkLightAlt();
             Debug.Log("Shrink Light");
         }
