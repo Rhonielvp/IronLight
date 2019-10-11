@@ -29,7 +29,10 @@ public class CameraBehaviour : MonoBehaviour
 
     //enum to set camera controller
     private enum CameraController { Keyboard, Mouse };
-    [SerializeField] private CameraController currentCamera;   
+    [SerializeField] private CameraController currentCamera;
+
+    private string vertical;
+    private string horizontal;
     
     //make it so players can decide the arrow directions
     private enum ControllerSetup { normal, inverted, invertedX, invertedY };
@@ -64,17 +67,12 @@ public class CameraBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //use enum to control camera settings
-        if(currentCamera == CameraController.Keyboard)
+        //unless the player has moved don't run camera function
+        if(cameraPivot.transform.position != player.transform.position)
         {
-            //Debug.Log("Keyboard");
-            SetCamera("CameraVertical", "CameraHorizontal", setup[currentSetup]);
-        }
-        else if(currentCamera == CameraController.Mouse)
-        {
-            //Debug.Log("Mouse");
-            SetCamera("MouseVertical", "MouseHorizontal", setup[currentSetup]);
-        }       
+            //camera fucntion using the correct axis
+            SetCamera(vertical, horizontal, setup[currentSetup]);
+        }   
     }
 
     //set camera
@@ -96,10 +94,29 @@ public class CameraBehaviour : MonoBehaviour
         rotY = cameraPivot.transform.rotation.eulerAngles.y;
         rotZ = cameraPivot.transform.rotation.eulerAngles.z;
 
+        //set axis according to enum
+        SetEnum();
+
         //set starting camera position
         SetCamera();        
     }
 
+    private void SetEnum()
+    {
+        //use enum to control camera settings
+        if (currentCamera == CameraController.Keyboard)
+        {
+            vertical = "CameraVertical";
+            horizontal = "CameraHorizontal";
+        }
+        else if (currentCamera == CameraController.Mouse)
+        {
+            vertical = "MouseVertical";
+            horizontal = "MouseHorizontal";
+        }
+    }
+
+    
     //pass in the input strings for whatever you want to use, keyboard or mouse
     //setup h/v will be for effecting invert or not
     private void SetCamera(string vertical, string horizontal, Vector2 setup)
@@ -171,22 +188,6 @@ public class CameraBehaviour : MonoBehaviour
                 }
             }
 
-
-            ////NORMAL WAY
-            ////adjust height
-            //followHeight += Input.GetAxisRaw(vertical) * Time.deltaTime * verticalRotSpeed * setup.y;
-
-            ////fix if out of range
-            //if (followHeight < followHeightMin)
-            //{
-            //    followHeight = followHeightMin;
-            //}
-            //else if (followHeight > followHeightMax)
-            //{
-            //    followHeight = followHeightMax;
-            //}
-
-
             //adjust camera as new follow height
             SetCamera();            
         }
@@ -196,8 +197,8 @@ public class CameraBehaviour : MonoBehaviour
     //code sugar
     private void SetCamera()
     {
-        camera.transform.position = cameraPivot.transform.position + cameraPivot.transform.up * followHeight + 
-                                    cameraPivot.transform.forward * -1 * followDistance;
+        camera.transform.position = cameraPivot.transform.position + (cameraPivot.transform.up * followHeight) + 
+                                    (cameraPivot.transform.forward * -1 * followDistance);
         camera.transform.LookAt(cameraPivot.transform.position);
         camera.transform.Rotate(-followRotation, 0, 0);
     }
