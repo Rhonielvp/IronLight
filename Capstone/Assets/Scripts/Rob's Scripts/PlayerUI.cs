@@ -17,6 +17,8 @@ public class PlayerUI : MonoBehaviour
 
     private bool aboveFocusCap;
 
+
+
     // Start is called before the first frame update
     void Start()
     {        
@@ -34,7 +36,7 @@ public class PlayerUI : MonoBehaviour
 
         //set health, charge, focus
         health.transform.position = fullPosition;
-        StopCharge();
+        SetChargeUIOff();
     }
 
 
@@ -51,6 +53,12 @@ public class PlayerUI : MonoBehaviour
         }       
 
         //Debug.Log(percentage);
+
+        //Stops the charge and focus when player is either damaged or gains health or uses an attack
+        if(charge.activeSelf == true)
+        {
+            SetChargeUIOff();
+        }
 
         health.transform.position = new Vector2(emptyPosition.x + (width * percentage), emptyPosition.y);
     }
@@ -73,12 +81,12 @@ public class PlayerUI : MonoBehaviour
     }
 
     //setting objects on or not
-    public void StartCharge()
+    public void SetChargeUIOn()
     {
         charge.SetActive(true);
         focus.SetActive(true);
     }
-    public void StopCharge()
+    public void SetChargeUIOff()
     {
         //reset stuff
         charge.transform.position = emptyPosition;

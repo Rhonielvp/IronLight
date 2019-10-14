@@ -35,6 +35,9 @@ public class PlayerAttackController : MonoBehaviour
 
     private void Start()
     {
+        //get access to attack charge which is in parent
+        charge = GetComponentInParent<AttackCharge>();
+
         //need access to player health so can adjust shit, is parent so okay
         playerHealthScript = GetComponentInParent<PlayerHealthBehaviour>();
 
@@ -114,8 +117,9 @@ public class PlayerAttackController : MonoBehaviour
 
     private void ExplosionAttack()
     {
-        //check if player has adequet health to attack
-        if(playerHealthScript.GetHealthCurrent() > explosionAttackDrain)
+        //check if player has charged and focus is available
+        Debug.Log("<color=orange>ChargePercentage: </color>" + charge.GetIsCharging());
+        if(charge.GetIsCharging())
         {
             //set position and rotation of particle effect
             explosionParticle.transform.position = transform.position;
@@ -124,10 +128,9 @@ public class PlayerAttackController : MonoBehaviour
             //emit only 1 particle
             explosionParticle.Play();
 
-            //adjust player health
-            //playerHealthScript.ModifyHealth(explosionAttackDrain);        
-            playerHealthScript.ChargeChange();
-        }        
+            //adjust player health, send negative
+            playerHealthScript.ModifyHealth(-(playerHealthScript.currentHealth * charge.GetFocusPercentage()));
+        }              
     }
 
     private void StopExplosionAttack()
@@ -158,7 +161,7 @@ public class PlayerAttackController : MonoBehaviour
 
     
     
-
+    //-------------------------------------------------------------
 
     //FOR ADDING EXTRA EFFECTS LATER ON
     //just like on trigger/collision enter but for particles

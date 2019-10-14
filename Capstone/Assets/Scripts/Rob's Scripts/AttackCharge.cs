@@ -10,15 +10,13 @@ public class AttackCharge : MonoBehaviour
 
     //player health script
     PlayerHealthBehaviour playerHealthScript;
-
-    [Range(0f, 0.5f)] [SerializeField] private float focusCap;
-
+    
     [Range(1f, 10f)] [SerializeField] private float chargeSpeed = 1f;
     [Range(0.01f, 0.1f)] [SerializeField] private float focusSpeed = 1f;
-    
+    [Range(0f, 0.5f)] [SerializeField] private float focusCap;
+
 
     public bool isCharging;
-    public bool isFocusing;
 
     private float chargePercentage = 0.0f;    
     private float focusPercentage = 0.0f;
@@ -42,9 +40,8 @@ public class AttackCharge : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && isCharging == false)
         {
             isCharging = true;
-            UI.StartCharge();
-
-            currentCoroutine = StartCoroutine(Charge());
+            StartCharge();
+            
         }
 
         //stop coroutine and reset charging
@@ -53,13 +50,36 @@ public class AttackCharge : MonoBehaviour
             isCharging = false;
 
             //reset UI         
-            UI.StopCharge();
-            Debug.Log("Reset");
-
-            //stop coroutine
-            StopCoroutine(currentCoroutine);
-            currentCoroutine = null;            
+            StopCharge();
+            Debug.Log("Reset");                    
         }
+    }
+
+    //begin charge
+    private void StartCharge()
+    {
+        //turn on UI
+        UI.SetChargeUIOn();
+
+        //start coroutine
+        currentCoroutine = StartCoroutine(Charge());
+    }
+
+    //stop charge
+    private void StopCharge()
+    {
+        //set percentages to 0
+        chargePercentage = 0.0f;
+        focusPercentage = 0.0f;
+
+        //turn of UI
+        UI.SetChargeUIOff();
+
+        //stop coroutine
+        StopCoroutine(currentCoroutine);
+
+        //set coroutine to null to destroy it
+        currentCoroutine = null;
     }
 
     IEnumerator Charge()
@@ -126,14 +146,7 @@ public class AttackCharge : MonoBehaviour
     }    
 
         
-    //for attacks to access the charget to determine multiplier strength
-    public float GetCharge()
-    {
-        isCharging = false;
-
-        return chargePercentage;
-    }
-
+    
     //player took damage so loses charge an resets UI slider
     public void DamageTaken()
     {
@@ -152,13 +165,49 @@ public class AttackCharge : MonoBehaviour
 
 
     //GETTERS & SETTERS
+    public bool GetIsCharging()
+    {
+        return isCharging;
+    }
+    
     public float GetChargePercentage()
     {
         return chargePercentage;
+    }
+    public void SetChargePercentage(float set)
+    {
+        if(set < 0.0f)
+        {
+            chargePercentage = 0.0f;
+        }
+        else if(set > 1.0f)
+        {
+            chargePercentage = 1.0f;
+        }
+        else
+        {
+            chargePercentage = set;
+        }        
     }
 
     public float GetFocusPercentage()
     {
         return focusPercentage;
+    }
+    public void SetFocusPercentage(float set)
+    {
+        if (set < 0.0f)
+        {
+            chargePercentage = 0.0f;
+        }
+        //if new value is greater than health percentage minus focus cap, than below focus cap
+        else if (set > playerHealthScript.currentHealth/playerHealthScript.GetHealthMax() - focusCap)
+        {
+            chargePercentage = playerHealthScript.currentHealth / playerHealthScript.GetHealthMax() - focusCap;
+        }
+        else
+        {
+            chargePercentage = set;
+        }
     }
 }
