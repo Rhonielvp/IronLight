@@ -498,6 +498,7 @@
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Plugins\Editor\Wires\WireReference.cs" />
     <Compile Include="Assets\Assets\DX11_Tessellation\DX11_Tessellation_Free\Editor\ShaderGUI\FreeTessPimped_GUI.cs" />
     <Compile Include="Assets\Assets\DX11_Tessellation\DX11_Tessellation_Free\Editor\ShaderGUI\TessStandard_GUI.cs" />
+    <Compile Include="Assets\Editor\LocationEditor.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/Robert Fowlie/Documents/GitHub/IronLight/Capstone/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
