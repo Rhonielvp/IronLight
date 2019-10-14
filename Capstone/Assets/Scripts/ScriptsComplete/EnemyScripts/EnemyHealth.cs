@@ -10,13 +10,30 @@ public class EnemyHealth : MonoBehaviour
     public GameObject HealthBarUI;
     public Slider slider;
 
+    [SerializeField] public bool Notify_Other_Enemy;
 
-	// Use this for initialization
-	void Start ()
+
+    //
+
+    Observer _observer;
+    delegate void AlertHandler();
+    AlertHandler _alertHandler;
+
+
+    // Use this for initialization
+    void Start ()
     {
         health = maxHealth;
         slider.value = CalculateHealth();
-	}	
+
+        //Observer
+        if (Notify_Other_Enemy)
+        {
+            _observer = new Observer();
+            _alertHandler += new AlertHandler(_observer.OnNotify);
+        }
+
+    }	
 	
 
     float CalculateHealth()
@@ -30,6 +47,8 @@ public class EnemyHealth : MonoBehaviour
 
         //keeps health clamped between max and -1 health
         health = Mathf.Clamp(health, -1, maxHealth);
+
+        if (Notify_Other_Enemy) { _alertHandler(); } //Alert Notification to All Enemies.!
 
         //only run this logic when health changes not in update
         if (health < maxHealth)

@@ -84,6 +84,15 @@
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\PostProcess\Sobel\PostProcessExample.cs" />
     <Compile Include="Assets\Assets\AmplifyShaderEditor\Examples\Official\TemplateExamples\Sprites\SpriteMask\SpriteMaskController.cs" />
     <Compile Include="Assets\Particles\FullTiltBoogie\RotateFlareHolder.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\AIWaypointNetwork.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\EnemyAnimator.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\EnemyAudio.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\EnemyController.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\EnemyController_2.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\enemyHealth.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\Observer.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\TagHolder.cs" />
+    <Compile Include="Assets\Scripts\Phil_Scripts\Testing_Radius.cs" />
     <Compile Include="Assets\Scripts\Review\CrystalRaycast.cs" />
     <Compile Include="Assets\Scripts\Review\Dashing.cs" />
     <Compile Include="Assets\Scripts\Review\SimpleCameraController.cs" />
