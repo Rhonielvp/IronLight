@@ -2,25 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//The behaviour of the boss collider boxes
 public class BossZoneBehaviour : MonoBehaviour
 {
-    [SerializeField] private GameObject boss;
-    private BossBehaviour bossScript;
+    private StartBossFight parent;
+
+    [SerializeField] private string group;
+    [SerializeField] private int zoneNumber;
 
     private void Start()
     {
-        //get boss script reference to call shit
-        bossScript = boss.GetComponent<BossBehaviour>();
+        //get access to the parent object to send trigger data
+        parent = GetComponentInParent<StartBossFight>();
     }
-    
-    
-    //begin boss fight when player enters
+
     private void OnTriggerEnter(Collider other)
     {
-        //set the bosses player reference
-        if (other.tag == "player")
+        if (other.tag == "Player")
         {
-            bossScript.SetPlayer(other.gameObject);
+            parent.SetZone("Player", zoneNumber);
+        }
+
+        if (other.tag == "Boss")
+        {
+            parent.SetZone("Boss", zoneNumber);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            parent.SetZone("Player", 0);
+        }
+
+        if (other.tag == "Boss")
+        {
+            parent.SetZone("boss", 0);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossBehaviour : MonoBehaviour
 {
     //boss states
-    private enum State { Off, Idle, FollowPlayer, CloseAttack, RangedAttack, Charging, Rushing, Stunned, Reset };
+    private enum State { Off, Idle, FollowPlayer, CloseAttack, RangedAttack, Charging, Rushing, Stunned, Return };
     private State currentState;
 
     //determine if boss is immune to state changes
@@ -38,9 +38,15 @@ public class BossBehaviour : MonoBehaviour
     [SerializeField] private float speedNormal;
     [SerializeField] private float speedRush;
     [SerializeField] private float chargeTime;
+    [Range(0.01f,0.99f)][SerializeField] private float followChance;
 
+
+    //start
     private void Start()
     {
+        //set tag
+        tag = "Boss";
+
         //hard coded...
         locations = new Vector3[3];
         locations[0] = locationA.transform.position;
@@ -49,10 +55,16 @@ public class BossBehaviour : MonoBehaviour
 
         //start state
         currentState = State.Off;
-        currentImmune = Immune.Yes;
+        currentImmune = Immune.Yes;        
+    }
 
-        //move to nearest platform
-        Reset();
+    //run the states
+    private void Update()
+    {
+        if(currentState == State.FollowPlayer)
+        {
+            FollowPlayer();
+        }    
     }
 
     private void CloseAttack()
@@ -65,20 +77,33 @@ public class BossBehaviour : MonoBehaviour
 
     }
 
+    //generic follow player code
     private void FollowPlayer()
     {
-        //get player location
-        Vector3 movementDirection = (player.transform.position - transform.position).normalized;
+        Debug.Log("<color=PURPLE>FOLLOWLING</color>");
 
-        //remove y component of vector so stays on the same plane... might not be necessary
-        //movementDirection.y = 0f;
+        //get player location
+        Vector3 movementDirection = (player.transform.position - transform.position).normalized;        
 
         //move boss towards player
         transform.position += movementDirection * Time.deltaTime * speedNormal;
+
+        //remove y component of vector than rotate to that direction
+        movementDirection.y = 0f;
+        transform.rotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+
+        //run random to break out of followPlayer
+        float temp = Random.Range(0, 1);
+        if(temp < followChance)
+        {
+            currentState = State.Return;
+            Return();
+        }
     }
 
     private void Charging()
     {
+        Debug.Log("<color=pink>CHARGIN</color>");
         //run charging animation
         //For now
         coroutineTimer = StartCoroutine(ChargeTimer());
@@ -111,9 +136,10 @@ public class BossBehaviour : MonoBehaviour
     //pick another platform and have boss russ to that platform
     private void Rushing()
     {
+        Debug.Log("<color=brown>RUSHING</color>");
         //determine if player is in adjacent area, charge at that area
         //get location of different point than point on
-        if(bossZone != playerZone)
+        if (bossZone != playerZone)
         {
             //charge to the platform that matches the players zone
             nextLocation = locations[(int)playerZone];
@@ -130,6 +156,11 @@ public class BossBehaviour : MonoBehaviour
             while (nextLocation == currentLocation);
         }              
         
+        if(coroutineMovement != null)
+        {
+            StopCoroutine(coroutineMovement);
+        }
+
         //start movement coroutine
         coroutineMovement = StartCoroutine(Move(currentLocation, nextLocation, speedRush));
     }
@@ -142,6 +173,9 @@ public class BossBehaviour : MonoBehaviour
 
         while(transform.position != nextLocation)
         {
+            Debug.Log("<color=blue>MOVING</color>");
+            //Debug.Log(count);
+
             //move closer to next position dependant on count
             transform.position = Vector3.Lerp(currentLocation, nextLocation, count/distance);
 
@@ -151,8 +185,16 @@ public class BossBehaviour : MonoBehaviour
             count += Time.deltaTime * speed;
         }
 
-        //decided what to do for next state
-        NextState();
+        //run random chance for states
+        float temp = Random.Range(0, 1);
+        if(temp < 0.5f)
+        {
+            currentState = State.FollowPlayer;
+        }
+        else
+        {
+            currentState = State.Charging;            
+        }
     }
 
     private void NextState()
@@ -161,8 +203,9 @@ public class BossBehaviour : MonoBehaviour
     }
 
     //have boss move to nearest platform
-    private void Reset()
+    private void Return()
     {
+        Debug.Log("RETURN");
         //check distance to each location
         Vector3 nearestLocation = locations[0];
         float nearestMagnitude = (locations[0] - transform.position).magnitude;
@@ -180,6 +223,12 @@ public class BossBehaviour : MonoBehaviour
             }
         }
 
+        if (coroutineMovement != null)
+        {
+            StopCoroutine(coroutineMovement);
+        }
+
+        Debug.Log("STARTCOROUTINE");
         //once nearest position aquired set destination to that, call coroutine
         coroutineMovement = StartCoroutine(Move(transform.position, nearestLocation, speedNormal));
     }
@@ -208,11 +257,13 @@ public class BossBehaviour : MonoBehaviour
     //will be passed to the boss when the player enters the arena
     public void SetPlayer(GameObject obj)
     {
+        Debug.Log("SETPLAYER");
+
         //assign player
         player = obj;
 
         //move boss to nearest platform
-        Reset();
+        Return();
     }
 
 

@@ -100,7 +100,6 @@
     <Compile Include="Assets\Scripts\Rob's Scripts\LocationBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\MovementController.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\MoveObject.cs" />
-    <Compile Include="Assets\Scripts\Rob's Scripts\PathBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerAttackController.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerHealthBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\PlayerIndicator.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="Assets\Scripts\Rob's Scripts\PuzzleSetup.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\ShrineBehaviour.cs" />
     <Compile Include="Assets\Scripts\Rob's Scripts\SpotlightBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Rob's Scripts\StartBossFight.cs" />
     <Compile Include="Assets\Scripts\ScriptsComplete\EnemyScripts\EnemyHealth.cs" />
     <Compile Include="Assets\Scripts\ScriptsComplete\EnemyScripts\EnemyTarget.cs" />
     <Compile Include="Assets\Scripts\ScriptsComplete\EnemyScripts\NPCSimplePatrol.cs" />
